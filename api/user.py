@@ -1,8 +1,8 @@
 from flask import Blueprint
 from flask_restful import Resource, Api, reqparse, abort
 
-from decorator import parse_request
-from exception import InvalidUsage
+from decorator import valid_request
+from exceptions import InvalidUsage
 from entities.user import UserEntity
 from entities.response import SuccessResponse
 
@@ -32,16 +32,17 @@ class User(Resource):
     def get(self):
         return SuccessResponse(UserEntity()).to_dict()
 
-    def update(self):
+    def put(self):
         raise InvalidUsage('Not support post')
 
-    @parse_request
+    @valid_request
     def post(self):
         args = user_post_parser.parse_args()
         return SuccessResponse({
             "username": args.get('username'),
             "password": args.get('password')
         }).to_dict()
+
 
 
 

@@ -1,19 +1,18 @@
-import json
 from functools import wraps
 
 from werkzeug.exceptions import HTTPException
 
-from exception import InvalidRequest
+from exceptions import InvalidRequest
 
 
-def parse_request(func):
+def valid_request(func):
     """
-    Hadle flask.
+    Check  request is valid.
     :param func:
     :return:
     """
     @wraps(func)
-    def parse(*args, **kwargs):
+    def decorator(*args, **kwargs):
         try:
             return func(*args, **kwargs)
         except HTTPException as e:
@@ -24,5 +23,4 @@ def parse_request(func):
                     raise InvalidRequest(e.description, e.code)
             else:
                 raise InvalidRequest(e.description, e.code)
-
-    return parse
+    return decorator

@@ -9,7 +9,7 @@ api = Api(bp)
 
 class Test(Resource):
     def get(self):
-        x = req._get('http://127.0.0.2:5001')
+        x = req.get('http://127.0.0.2:5001')
         return SuccessResponse(x).to_json()
 
 

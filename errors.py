@@ -1,15 +1,15 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, current_app
 from werkzeug.exceptions import HTTPException
 
-from exception import DefaultException
+from exceptions import DefaultException
 from entities.response import ErrorResponse
 
-errors = Blueprint('errors', __name__)
+bp = Blueprint('errors', __name__)
 
 
-@errors.app_errorhandler(Exception)
-@errors.app_errorhandler(HTTPException)
-@errors.app_errorhandler(DefaultException)
+@bp.app_errorhandler(Exception)
+@bp.app_errorhandler(HTTPException)
+@bp.app_errorhandler(DefaultException)
 def handle_global_exception(error):
     """
     Handle custom exception inherit DefaultException
