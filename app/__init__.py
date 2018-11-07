@@ -1,4 +1,5 @@
 from flask import Flask
+from .db import get_db
 from config import config
 from app.api import test_req, users
 from app import errors
@@ -18,10 +19,12 @@ def create_app(config_name):
         app.config.from_object(config[config_name])
 
     # bind db
-    from .db import db
     with app.app_context():
-        db.init_app(app)
-        db.create_all()
+        sql_db = get_db('sql')
+        sql_db.init_db(app)
+
+        no_sql_db = get_db('nosql')
+        no_sql_db.init_db(app)
 
     # register blueprints
     app.register_blueprint(errors.bp)

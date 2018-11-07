@@ -1,10 +1,13 @@
-from ..db import db
+from lib.constant import db_types
+from ..db import get_db
 from lib import entity
 from . import AbstractModel
 
+db = get_db(db_types.SQL)()
+
 
 class UserModel(db.Model, AbstractModel):
-    __tablename__ = 'users'
+    __tablename__ = 'user'
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80))

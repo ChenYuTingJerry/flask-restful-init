@@ -1,10 +1,11 @@
 from flask import Blueprint
-from flask_restful import Resource, Api, reqparse, fields, marshal_with
+from flask_restful import Resource, Api, reqparse
 
 from decorators import valid_request
 from app.exceptions import InvalidUsage
 from entities.user import UserEntity
-from ..models.user import UserModel
+from ..model.user import UserModel
+from ..model.log import LogModel
 from entities.response import SuccessResponse
 
 bp = Blueprint(name='users', import_name=__name__)
@@ -31,8 +32,10 @@ user_post_parser.add_argument(
 
 class User(Resource):
 
-    def get(self, id):
-        user = UserModel.find_by_id(id)
+    def get(self, user_id):
+        log_model = LogModel(content='What is mongoDB?', category='TEST')
+        log_model.save()
+        user = UserModel.find_by_id(user_id)
         if user:
             return SuccessResponse(user.to_entity()).to_dict()
         else:
@@ -54,5 +57,5 @@ class Health(Resource):
         return SuccessResponse(UserEntity()).to_dict()
 
 
-api.add_resource(User, '', '/', '/<int:id>')
+api.add_resource(User, '', '/', '/<int:user_id>')
 api.add_resource(Health, '/health')
