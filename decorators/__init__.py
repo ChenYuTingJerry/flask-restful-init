@@ -2,7 +2,7 @@ from functools import wraps
 
 from werkzeug.exceptions import HTTPException
 
-from exceptions import InvalidRequest
+from app.exceptions import InvalidRequest
 
 
 def valid_request(func):

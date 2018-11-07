@@ -1,7 +1,7 @@
-from flask import Blueprint, jsonify, current_app
+from flask import Blueprint, jsonify
 from werkzeug.exceptions import HTTPException
 
-from exceptions import DefaultException
+from app.exceptions import DefaultException
 from entities.response import ErrorResponse
 
 bp = Blueprint('errors', __name__)
@@ -23,7 +23,6 @@ def handle_global_exception(error):
     response = ErrorResponse(error)
     return jsonify(response.to_dict()), status_code
 
-# @errors.errorhandler(HTTPException)
 # def handle_http_except_error(error):
 #     """
 #     Handle all HTTP exception
