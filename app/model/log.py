@@ -1,11 +1,9 @@
 from datetime import datetime
-
-from lib.constant import db_types
-from ..db import get_db
+from ..db import mongodb
 from lib import entity
 from . import AbstractModel
 
-db = get_db(db_types.NO_SQL)()
+db = mongodb.instance()
 
 
 class LogModel(db.Document, AbstractModel):

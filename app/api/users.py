@@ -3,7 +3,6 @@ from flask_restful import Resource, Api, reqparse
 
 from decorators import valid_request
 from app.exceptions import InvalidUsage
-from entities.user import UserEntity
 from ..model.user import UserModel
 from ..model.log import LogModel
 from entities.response import SuccessResponse
@@ -52,10 +51,4 @@ class User(Resource):
         return SuccessResponse(user.to_entity()).to_dict(), 201
 
 
-class Health(Resource):
-    def get(self):
-        return SuccessResponse(UserEntity()).to_dict()
-
-
 api.add_resource(User, '', '/', '/<int:user_id>')
-api.add_resource(Health, '/health')

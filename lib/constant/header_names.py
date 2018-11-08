@@ -1,7 +1,7 @@
 import sys
 
 
-class __Const:
+class _Const:
     class ConstError(TypeError):
         pass
 
@@ -20,5 +20,5 @@ class __Const:
         self.AUTHORIZATION = 'Authorization'
 
 
-sys.modules[__name__] = __Const()
+sys.modules[__name__] = _Const()
 

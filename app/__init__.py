@@ -1,5 +1,5 @@
 from flask import Flask
-from .db import get_db
+from .db import mysql, mongodb
 from config import config
 from app.api import test_req, users
 from app import errors
@@ -20,11 +20,11 @@ def create_app(config_name):
 
     # bind db
     with app.app_context():
-        sql_db = get_db('sql')
-        sql_db.init_db(app)
+        mysql_db = mysql
+        mysql_db.init_db(app)
 
-        no_sql_db = get_db('nosql')
-        no_sql_db.init_db(app)
+        mongo_db = mongodb
+        mongo_db.init_db(app)
 
     # register blueprints
     app.register_blueprint(errors.bp)

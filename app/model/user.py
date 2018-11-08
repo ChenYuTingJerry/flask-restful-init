@@ -1,9 +1,8 @@
-from lib.constant import db_types
-from ..db import get_db
+from ..db import mysql
 from lib import entity
 from . import AbstractModel
 
-db = get_db(db_types.SQL)()
+db = mysql.instance()
 
 
 class UserModel(db.Model, AbstractModel):
@@ -27,6 +26,7 @@ class UserModel(db.Model, AbstractModel):
 
     def to_entity(self):
         return entity.mapper({
+            'id': self.id,
             'user_name': self.username,
             'age': self.age
         })
