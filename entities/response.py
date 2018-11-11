@@ -1,4 +1,4 @@
-from lib.entity import Entity
+from utils.entity import Entity
 
 
 class Response(Entity):
@@ -40,3 +40,4 @@ class SuccessResponse(Response):
                 self.data = data.__dict__
         else:
             self.data = {}
+

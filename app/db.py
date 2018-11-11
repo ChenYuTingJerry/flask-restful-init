@@ -2,56 +2,57 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_mongoengine import MongoEngine
 
 
-class _SQLAlchemySingleton:
-    _instance = None
-
-    @staticmethod
-    def get_instance():
-        if not _SQLAlchemySingleton._instance:
-            _SQLAlchemySingleton._instance = SQLAlchemy()
-        return _SQLAlchemySingleton._instance
-
-
-class _MongoEngineSingleton:
-    _instance = None
-
-    @staticmethod
-    def get_instance():
-        if not _MongoEngineSingleton._instance:
-            _MongoEngineSingleton._instance = MongoEngine()
-        return _MongoEngineSingleton._instance
-
-
-class Instance:
+class DatabaseInstance:
     def init_db(self, app):
         raise NotImplemented('init_db() needs to be implemented')
 
-    def instance(self):
-        raise NotImplemented('get_db_instance() needs to be implemented')
+    @property
+    def engine(self):
+        raise NotImplemented('engine() needs to be implemented')
+
+    def commit(self):
+        pass
+
+    def rollback(self):
+        pass
 
 
-class MysqlInstance(Instance):
+_engines = {
+    'mongo': MongoEngine(),
+    'sql_alchemy': SQLAlchemy()
+}
+
+
+class Mysql(DatabaseInstance):
     def __init__(self):
-        self.db = _SQLAlchemySingleton.get_instance()
+        self.db = _engines.get('sql_alchemy')
 
     def init_db(self, app):
         self.db.init_app(app)
         self.db.create_all()
 
-    def instance(self):
+    @property
+    def engine(self):
         return self.db
 
+    def commit(self):
+        self.db.session.commit()
 
-class MongoInstance(Instance):
+    def rollback(self):
+        self.db.session.rollback()
+
+
+class Mongodb(DatabaseInstance):
     def __init__(self):
-        self.db = _MongoEngineSingleton.get_instance()
+        self.db = _engines.get('mongo')
 
     def init_db(self, app):
         self.db.init_app(app)
 
-    def instance(self):
+    @property
+    def engine(self):
         return self.db
 
 
-mysql = MysqlInstance()
-mongodb = MongoInstance()
+mysql = Mysql()
+mongodb = Mongodb()

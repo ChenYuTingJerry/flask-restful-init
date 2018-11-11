@@ -1,8 +1,8 @@
 from ..db import mysql
-from lib import entity
+from utils import entity
 from . import AbstractModel
 
-db = mysql.instance()
+db = mysql.engine
 
 
 class UserModel(db.Model, AbstractModel):
@@ -18,11 +18,11 @@ class UserModel(db.Model, AbstractModel):
 
     def save(self):
         db.session.add(self)
-        db.session.commit()
+        db.session.flush()
 
     def delete(self):
         db.session.delete(self)
-        db.session.commit()
+        db.session.flush()
 
     def to_entity(self):
         return entity.mapper({

@@ -1,8 +1,7 @@
 from functools import wraps
-
 from werkzeug.exceptions import HTTPException
-
 from app.exceptions import InvalidRequest
+from flask import current_app as app
 
 
 def valid_request(func):
@@ -11,8 +10,9 @@ def valid_request(func):
     :param func:
     :return:
     """
+
     @wraps(func)
-    def decorator(*args, **kwargs):
+    def wrapper(*args, **kwargs):
         try:
             return func(*args, **kwargs)
         except HTTPException as e:
@@ -23,4 +23,6 @@ def valid_request(func):
                     raise InvalidRequest(e.description, e.code)
             else:
                 raise InvalidRequest(e.description, e.code)
-    return decorator
+
+    return wrapper
+

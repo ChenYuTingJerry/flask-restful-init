@@ -1,5 +1,5 @@
 import requests
-from lib import entity
+from utils import entity
 
 default_timeout = 10
 

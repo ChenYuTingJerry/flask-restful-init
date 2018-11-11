@@ -6,6 +6,7 @@ from app.exceptions import InvalidUsage
 from ..model.user import UserModel
 from ..model.log import LogModel
 from entities.response import SuccessResponse
+from ..service import user_service as service
 
 bp = Blueprint(name='users', import_name=__name__)
 api = Api(bp)
@@ -46,9 +47,8 @@ class User(Resource):
     @valid_request
     def post(self):
         args = user_post_parser.parse_args()
-        user = UserModel(args['user_name'], args['age'])
-        user.save()
-        return SuccessResponse(user.to_entity()).to_dict(), 201
+        new_id = service.create_user(name=args['user_name'], age=args['age'])
+        return SuccessResponse({'id': new_id}).to_dict(), 201
 
 
 api.add_resource(User, '', '/', '/<int:user_id>')
