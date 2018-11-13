@@ -13,7 +13,7 @@ def init_app(app):
     @app.after_request
     def after_each_request(response):
         app.logger.info('after_each_request: {}'.format(response.status_code))
-        if not 0 <= (response.status_code - 200) < 100:
+        if not response.status_code % 200 < 100:
             app.logger.info('db rollback')
             mysql.rollback()
         else:

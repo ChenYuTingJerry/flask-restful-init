@@ -5,6 +5,9 @@ class Response(Entity):
     def __init__(self, status):
         self.status = status
 
+    def to_dict(self):
+        return self.__dict__
+
 
 class ErrorResponse(Response):
 
@@ -40,4 +43,5 @@ class SuccessResponse(Response):
                 self.data = data.__dict__
         else:
             self.data = {}
+
 

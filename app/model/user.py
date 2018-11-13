@@ -1,5 +1,5 @@
-from ..db import mysql
 from utils import entity
+from ..db import mysql
 from . import AbstractModel
 
 db = mysql.engine

@@ -1,12 +1,10 @@
-from flask import Blueprint
+from flask import Blueprint, current_app as app
 from flask_restful import Resource, Api, reqparse
 
 from decorators import valid_request
 from app.exceptions import InvalidUsage
-from ..model.user import UserModel
-from ..model.log import LogModel
 from entities.response import SuccessResponse
-from ..service import user_service as service
+from ...service import user_service as service
 
 bp = Blueprint(name='users', import_name=__name__)
 api = Api(bp)
@@ -33,13 +31,12 @@ user_post_parser.add_argument(
 class User(Resource):
 
     def get(self, user_id):
-        log_model = LogModel(content='What is mongoDB?', category='TEST')
-        log_model.save()
-        user = UserModel.find_by_id(user_id)
+        user = service.get_user(user_id)
+        app.logger.debug(user)
         if user:
-            return SuccessResponse(user.to_entity()).to_dict()
+            return SuccessResponse(user).to_dict(), 200
         else:
-            return SuccessResponse().to_dict()
+            return None, 204
 
     def put(self):
         raise InvalidUsage('Not support post')

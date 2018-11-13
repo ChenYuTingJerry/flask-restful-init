@@ -1,3 +1,8 @@
+import logging
+
+LOG_PATH = './log/app.log'
+LOG_SIZE = 2048
+LOG_LEVEL = logging.INFO
 SQLALCHEMY_ECHO = False
 SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://jerry:password@localhost:3308/test_db'
 MONGODB_SETTINGS = {

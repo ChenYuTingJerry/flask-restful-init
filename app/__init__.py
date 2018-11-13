@@ -1,13 +1,14 @@
 from flask import Flask
 from config import config
-from app.api import test_req, users
-from app import errors, logger, event_listener
+from app.api import test_req, users, orders
+from app import errors, logger, events
 from .db import mysql, mongodb
 
 
 def register_blueprints(app):
     app.register_blueprint(errors.bp)
     app.register_blueprint(users.bp, url_prefix='/users')
+    app.register_blueprint(orders.bp, url_prefix='/orders')
     app.register_blueprint(test_req.bp, url_prefix='/test_req')
 
 
@@ -25,7 +26,7 @@ def create_app(config_name):
         app.config.from_object(config[config_name])
 
     logger.init_app(app)
-    event_listener.init_app(app)
+    events.init_app(app)
 
     # register blueprints
     register_blueprints(app)
