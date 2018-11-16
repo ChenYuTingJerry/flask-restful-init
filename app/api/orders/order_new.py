@@ -8,5 +8,4 @@ class OrderNew(Resource):
     def get(self):
         return None, 204
 
-
 api.add_resource(OrderNew, '/new')

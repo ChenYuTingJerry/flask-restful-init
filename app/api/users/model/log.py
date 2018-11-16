@@ -1,12 +1,11 @@
 from datetime import datetime
-from ..db import mongodb
+from app.db import mongodb
 from utils import entity
-from . import AbstractModel
 
 db = mongodb.engine
 
 
-class LogModel(db.Document, AbstractModel):
+class LogModel(db.Document):
     issue_time = db.DateTimeField(default=datetime.utcnow)
     category = db.StringField(max_length=50)
     content = db.StringField(max_length=50)

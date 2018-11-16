@@ -1,8 +1,11 @@
 import logging
 
+DEBUG = False
 LOG_PATH = './log/app.log'
 LOG_SIZE = 2048
-LOG_LEVEL = logging.INFO
+LOG_LEVEL = logging.DEBUG
+LOG_FORMAT = '[%(asctime)-12s] %(levelname)s in %(module)s: %(message)s'
+
 SQLALCHEMY_ECHO = False
 SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://jerry:password@localhost:3308/test_db'
 MONGODB_SETTINGS = {
@@ -12,4 +15,3 @@ MONGODB_SETTINGS = {
     'username': 'tester',
     'password': 'test_pwd'
 }
-MONGODB_CONNECT = False

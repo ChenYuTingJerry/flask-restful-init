@@ -2,24 +2,6 @@ import json
 from copy import deepcopy
 
 
-def mapper(obj):
-    entity = Entity()
-    if type(obj) is dict:
-        entity.__dict__ = obj
-    elif type(obj) is str or type(obj) is bytes:
-        entity.__dict__ = json.loads(obj)
-
-    for key, value in entity.__dict__.items():
-        if type(value) is dict:
-            entity.__dict__[key] = mapper(json.dumps(value))
-        elif type(value) is list:
-            for i, obj in enumerate(value):
-                if type(obj) is dict:
-                    value[i] = mapper(json.dumps(obj))
-
-    return entity
-
-
 class Entity:
     def __init__(self):
         pass
@@ -37,3 +19,21 @@ class Entity:
 
     def to_dict(self):
         return self.__dict__
+
+    @classmethod
+    def from_object(cls, obj):
+        entity = cls()
+        if type(obj) is dict:
+            entity.__dict__ = obj
+        elif type(obj) is str or type(obj) is bytes:
+            entity.__dict__ = json.loads(obj)
+
+        for key, value in entity.__dict__.items():
+            if type(value) is dict:
+                entity.__dict__[key] = cls.from_object(json.dumps(value))
+            elif type(value) is list:
+                for i, obj in enumerate(value):
+                    if type(obj) is dict:
+                        value[i] = cls.from_object(json.dumps(obj))
+
+        return entity

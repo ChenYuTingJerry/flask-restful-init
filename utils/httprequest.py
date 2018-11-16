@@ -1,5 +1,6 @@
 import requests
-from utils import entity
+
+from utils.entity import Entity
 
 default_timeout = 10
 
@@ -11,9 +12,7 @@ def post(url, data=None, headers=None, params=None, timeout=default_timeout):
             code == requests.codes.created:
         body = response.json()
         if body:
-            return entity.mapper(body)
-    else:
-        response.raise_for_status()
+            return Entity.from_object(body)
 
 
 def get(url, headers=None, params=None, timeout=default_timeout):
@@ -22,9 +21,7 @@ def get(url, headers=None, params=None, timeout=default_timeout):
     if code == requests.codes.ok:
         body = response.json()
         if body:
-            return entity.mapper(body)
-    else:
-        response.raise_for_status()
+            return Entity.from_object(body)
 
 
 def update(url, data=None, headers=None, params=None, timeout=default_timeout):
@@ -32,8 +29,6 @@ def update(url, data=None, headers=None, params=None, timeout=default_timeout):
     code = response.status_code
     if code == requests.codes.ok:
         return {}
-    else:
-        response.raise_for_status()
 
 
 def head():
@@ -49,6 +44,3 @@ def delete(url, headers=None, params=None, timeout=default_timeout):
     code = response.status_code
     if code == requests.codes.ok:
         return {}
-    else:
-        response.raise_for_status()
-

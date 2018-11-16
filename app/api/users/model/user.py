@@ -1,11 +1,10 @@
-from utils import entity
-from ..db import mysql
-from . import AbstractModel
+from utils.entity import Entity
+from app.db import mysql
 
 db = mysql.engine
 
 
-class UserModel(db.Model, AbstractModel):
+class UserModel(db.Model):
     __tablename__ = 'user'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -25,7 +24,7 @@ class UserModel(db.Model, AbstractModel):
         db.session.flush()
 
     def to_entity(self):
-        return entity.mapper({
+        return Entity.from_object({
             'id': self.id,
             'user_name': self.username,
             'age': self.age

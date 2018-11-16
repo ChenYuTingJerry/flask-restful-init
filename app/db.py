@@ -2,7 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_mongoengine import MongoEngine
 
 
-class DatabaseInstance:
+class DatabaseProxy:
     def init_db(self, app):
         raise NotImplemented('init_db() needs to be implemented')
 
@@ -11,10 +11,10 @@ class DatabaseInstance:
         raise NotImplemented('engine() needs to be implemented')
 
     def commit(self):
-        pass
+        raise NotImplemented('commit() needs to be implemented')
 
     def rollback(self):
-        pass
+        raise NotImplemented('rollback() needs to be implemented')
 
 
 _engines = {
@@ -23,7 +23,7 @@ _engines = {
 }
 
 
-class Mysql(DatabaseInstance):
+class Mysql(DatabaseProxy):
     def __init__(self):
         self.db = _engines.get('sql_alchemy')
 
@@ -42,7 +42,7 @@ class Mysql(DatabaseInstance):
         self.db.session.rollback()
 
 
-class Mongodb(DatabaseInstance):
+class Mongodb(DatabaseProxy):
     def __init__(self):
         self.db = _engines.get('mongo')
 

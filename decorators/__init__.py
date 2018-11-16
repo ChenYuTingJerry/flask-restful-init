@@ -1,7 +1,7 @@
 from functools import wraps
-from werkzeug.exceptions import HTTPException
+from werkzeug.exceptions import BadRequest
+
 from app.exceptions import InvalidRequest
-from flask import current_app as app
 
 
 def valid_request(func):
@@ -15,14 +15,14 @@ def valid_request(func):
     def wrapper(*args, **kwargs):
         try:
             return func(*args, **kwargs)
-        except HTTPException as e:
+        except BadRequest as e:
             if hasattr(e, 'data'):
                 if 'message' in e.data:
-                    raise InvalidRequest(e.description, e.code, e.data.get('message'))
+                    raise InvalidRequest(description='request parameters, queries or body format are invalid.',
+                                         code=e.code, message=e.data.get('message'))
                 else:
-                    raise InvalidRequest(e.description, e.code)
+                    raise InvalidRequest(description=e.description, code=e.code)
             else:
                 raise InvalidRequest(e.description, e.code)
 
     return wrapper
-

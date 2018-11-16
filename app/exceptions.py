@@ -1,21 +1,27 @@
-class DefaultException(Exception):
+from werkzeug.exceptions import HTTPException
 
-    def __init__(self, message, code=None, data=None):
-        Exception.__init__(self)
-        self.message = message
+
+class DefaultException(HTTPException):
+
+    def __init__(self, description, code=None, message=None):
+        self.description = description
         self.code = code
-        self.data = data
+        self.message = message
 
     def __str__(self):
-        return self.message
-
-
-class InvalidUsage(DefaultException):
-
-    def __init__(self, message, code=400, data=None):
-        DefaultException.__init__(self, message, code, data)
+        return self.description
 
 
 class InvalidRequest(DefaultException):
-    def __init__(self, message, code=400, data=None):
-        DefaultException.__init__(self, message, code, data)
+    def __init__(self, description, code=400, message=None):
+        DefaultException.__init__(self, description=description, code=code, message=message)
+
+
+class InsufficientStorage(DefaultException):
+    def __init__(self, description='Not enough storage space.', code=507, message=None):
+        DefaultException.__init__(self, description=description, code=code, message=message)
+
+
+class RequestError(DefaultException):
+    def __init__(self, description='', code=500, message=None):
+        DefaultException.__init__(self, description=description, code=code, message=message)

@@ -1,5 +1,4 @@
-from app.model.user import UserModel
-from flask import current_app as app
+from app.api.users.model.user import UserModel
 
 
 def create_user(name, age):
@@ -10,7 +9,6 @@ def create_user(name, age):
 
 def get_user(user_id):
     user = UserModel.find_by_id(user_id)
-    app.logger.debug('{}'.format(user))
     if user:
         return user.to_entity()
     else:
