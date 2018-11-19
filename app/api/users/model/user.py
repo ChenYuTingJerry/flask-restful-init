@@ -1,3 +1,4 @@
+from app.signal_handlers import user_created
 from utils.entity import Entity
 from app.db import mysql
 
@@ -18,6 +19,7 @@ class UserModel(db.Model):
     def save(self):
         db.session.add(self)
         db.session.flush()
+        user_created.send(self)
 
     def delete(self):
         db.session.delete(self)

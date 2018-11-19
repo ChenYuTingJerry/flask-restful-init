@@ -30,6 +30,9 @@ def create_app(config_name):
         # register blueprints
         register_blueprints(app)
 
+        from .signal_handlers import connect_handlers
+        connect_handlers()
+
         from .db import mysql, mongodb
         # init db
         mysql_db = mysql
