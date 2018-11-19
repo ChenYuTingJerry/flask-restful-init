@@ -1,7 +1,7 @@
-from . import dev, prod
+from . import config, test_config
 
 config = {
-    'default': dev,
-    'dev': dev,
-    'prod': prod,
+    'default': config,
+    'dev': config,
+    'prod': test_config,
 }

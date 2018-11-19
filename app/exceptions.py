@@ -17,8 +17,8 @@ class InvalidRequest(DefaultException):
         DefaultException.__init__(self, description=description, code=code, message=message)
 
 
-class InsufficientStorage(DefaultException):
-    def __init__(self, description='Not enough storage space.', code=507, message=None):
+class InvalidUsage(DefaultException):
+    def __init__(self, description, code=400, message=None):
         DefaultException.__init__(self, description=description, code=code, message=message)
 
 

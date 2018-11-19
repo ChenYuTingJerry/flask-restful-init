@@ -2,7 +2,7 @@ from flask import jsonify
 from werkzeug.exceptions import HTTPException
 
 from app.exceptions import DefaultException
-from entities.response import ErrorResponse
+from app.entities.response import ErrorResponse
 
 
 def init_app(app):

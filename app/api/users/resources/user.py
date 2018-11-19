@@ -1,10 +1,10 @@
 from flask_restful import reqparse, Resource, Api
-from . import bp
-from app.exceptions import InsufficientStorage
-from decorators import valid_request
-from entities.response import SuccessResponse
-from .service import user_service
-from flask import current_app as app
+
+from app.entities.response import SuccessResponse
+from app.api.users import bp
+from app.exceptions import InvalidUsage
+from app.decorators import valid_request
+from app.api.users.services import user_service
 
 api = Api(bp)
 
@@ -37,8 +37,7 @@ class User(Resource):
             return None, 204
 
     def put(self):
-        raise InsufficientStorage()
-        # raise InvalidUsage('Not support post')
+        raise InvalidUsage('Not allow to update user')
 
     @valid_request
     def post(self):

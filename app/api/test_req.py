@@ -5,7 +5,7 @@ from requests import RequestException
 from app.exceptions import RequestError
 from utils import httprequest as req
 from flask import current_app as app
-from entities.response import SuccessResponse
+from app.entities.response import SuccessResponse
 
 bp = Blueprint(name='test', import_name=__name__)
 api = Api(bp)

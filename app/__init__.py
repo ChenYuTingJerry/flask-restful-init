@@ -1,25 +1,20 @@
 from flask import Flask
-from config import config
-from app.api import test_req, users, orders
+from app.api import test_req, users
 
 
 def register_blueprints(app):
     app.register_blueprint(users.bp, url_prefix='/users')
-    app.register_blueprint(orders.bp, url_prefix='/orders')
     app.register_blueprint(test_req.bp, url_prefix='/test_req')
 
 
-def create_app(config_name):
+def create_app(config_name='config.config'):
     """
 
       :param config_name:
       :return:
       """
     app = Flask(__name__)
-    if config_name not in config:
-        app.config.from_object(config['default'])
-    else:
-        app.config.from_object(config[config_name])
+    app.config.from_object(config_name)
 
     # bind db
     with app.app_context():

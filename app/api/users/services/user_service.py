@@ -1,4 +1,4 @@
-from app.api.users.model.user import UserModel
+from app.api.users.models.user import UserModel
 
 
 def create_user(name, age):
