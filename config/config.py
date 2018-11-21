@@ -1,6 +1,7 @@
 import logging
 
 DEBUG = True
+TESTING = False
 LOG_PATH = './log/app.log'
 LOG_SIZE = 2048
 LOG_LEVEL = logging.DEBUG

@@ -9,7 +9,7 @@ def app():
     return app
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def mysql(app, request):
     engine = sql_db.engine
 

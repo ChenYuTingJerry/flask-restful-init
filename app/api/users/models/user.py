@@ -12,9 +12,11 @@ class UserModel(db.Model):
     username = db.Column(db.String(80))
     age = db.Column(db.Integer)
 
-    def __init__(self, username, age):
+    def __init__(self, username, age, id=None):
         self.username = username
         self.age = age
+        if id:
+            self.id = id
 
     def save(self):
         db.session.add(self)

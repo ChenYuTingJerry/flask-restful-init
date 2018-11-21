@@ -26,8 +26,11 @@ user_post_parser.add_argument(
     help='The user\'s age',
 )
 
+class BaseResource(Resource):
+    def get(self):
+        raise InvalidUsage('Not supported')
 
-class User(Resource):
+class User(BaseResource):
 
     def get(self, user_id=None):
         user = user_service.get_user(user_id)
@@ -36,7 +39,7 @@ class User(Resource):
         else:
             return None, 204
 
-    def put(self):
+    def put(self, user_id):
         raise InvalidUsage('Not allow to update user')
 
     @valid_request

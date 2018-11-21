@@ -6,7 +6,7 @@ def test_get_no_user(client):
     assert response.status_code == 204
 
 
-def test_create_user(app, client, mysql):
+def test_create_user(app, client):
     with app.app_context():
         data = {
             'user_name': 'Test King',
