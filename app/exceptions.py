@@ -1,7 +1,7 @@
 from werkzeug.exceptions import HTTPException
 
 
-class DefaultException(HTTPException):
+class CustomException(HTTPException):
 
     def __init__(self, description, code=None, message=None):
         self.description = description
@@ -12,16 +12,16 @@ class DefaultException(HTTPException):
         return self.description
 
 
-class InvalidRequest(DefaultException):
+class InvalidRequest(CustomException):
     def __init__(self, description, code=400, message=None):
-        DefaultException.__init__(self, description=description, code=code, message=message)
+        super().__init__(description=description, code=code, message=message)
 
 
-class InvalidUsage(DefaultException):
+class InvalidUsage(CustomException):
     def __init__(self, description, code=400, message=None):
-        DefaultException.__init__(self, description=description, code=code, message=message)
+        super().__init__(description=description, code=code, message=message)
 
 
-class RequestError(DefaultException):
+class RequestError(CustomException):
     def __init__(self, description='', code=500, message=None):
-        DefaultException.__init__(self, description=description, code=code, message=message)
+        super().__init__(description=description, code=code, message=message)

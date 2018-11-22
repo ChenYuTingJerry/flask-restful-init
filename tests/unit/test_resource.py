@@ -39,4 +39,25 @@ class TestUserResource:
         assert body.get('status') == 1
         assert body.get('error').get('type') == 'InvalidUsage'
 
-    # def test_post_user(self):
+    def test_post_user(self, client, monkeypatch):
+        def mockreturn(name, age):
+            return 18
+
+        monkeypatch.setattr(user_service, 'create_user', mockreturn)
+
+        response = client.post('/users', json={'user_name': 'Test', 'age': 20})
+        assert response.status_code == 201
+        assert response.data
+
+        body = json.loads(response.data)
+        assert body.get('status') == 0
+        assert body.get('data').get('id') == 18
+
+    def test_post_user_with_wrong_format(self, client):
+        response = client.post('/users', json={'wrong_name': 'Test', 'age': 20})
+        assert response.status_code == 400
+        assert response.data
+
+        body = json.loads(response.data)
+        assert body.get('status') == 1
+        assert body.get('error').get('type') == 'InvalidRequest'

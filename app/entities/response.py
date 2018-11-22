@@ -36,7 +36,7 @@ class SuccessResponse(Response):
         if data:
             if type(data) is dict:
                 self.data = data
-            elif isinstance(data, Entity):
+            else:
                 self.data = data.__dict__
         else:
             self.data = {}

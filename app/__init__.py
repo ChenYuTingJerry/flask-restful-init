@@ -1,10 +1,9 @@
 from flask import Flask
-from app.api import test_req, users
+from app.api import users
 
 
 def register_blueprints(app):
     app.register_blueprint(users.bp, url_prefix='/users')
-    app.register_blueprint(test_req.bp, url_prefix='/test_req')
 
 
 def create_app(config_name='config.config'):
