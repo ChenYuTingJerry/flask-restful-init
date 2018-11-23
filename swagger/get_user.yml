@@ -1,0 +1,31 @@
+Get an user data.
+---
+tags:
+- User
+parameters:
+  - name: user_id
+    in: query
+    type: integer
+    required: true
+    description: The id of the user
+responses:
+  200:
+    description: Get user data
+    schema:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 0
+        data:
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 1
+            user_name:
+              type: string
+              example: Jessica Jones
+            age:
+              type: integer
+              example: 35

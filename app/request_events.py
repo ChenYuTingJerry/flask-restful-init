@@ -18,10 +18,8 @@ def init_app(app):
     @app.after_request
     def after_each_request(response):
         if not response.status_code % 200 < 100:
-            app.logger.debug('db rollback')
             mysql.rollback()
         else:
-            app.logger.debug('db commit')
             mysql.commit()
 
         app.logger.info('"{} {}" request time: {}'.format(request.method, request.path, g.request_time()))

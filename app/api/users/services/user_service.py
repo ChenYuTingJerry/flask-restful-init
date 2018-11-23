@@ -10,6 +10,7 @@ def create_user(name, age):
 def get_user(user_id):
     user = UserModel.find_by_id(user_id)
     if user:
-        return user.to_entity()
+        entity = user.to_entity()
+        return entity
     else:
         return None

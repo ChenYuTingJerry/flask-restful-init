@@ -2,6 +2,8 @@ import logging
 
 DEBUG = True
 TESTING = True
+
+SWAGGER_TEMPLATE = {}
 LOG_PATH = './log/app_test.log'
 LOG_SIZE = 2048
 LOG_LEVEL = logging.DEBUG

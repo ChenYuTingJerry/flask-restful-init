@@ -15,4 +15,4 @@ def init_app(app):
                 """
         status_code = error.code
         response = ErrorResponse(error)
-        return jsonify(response.to_dict()), status_code
+        return jsonify(response), status_code

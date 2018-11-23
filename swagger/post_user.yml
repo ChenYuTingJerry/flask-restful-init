@@ -1,0 +1,35 @@
+Create a new user.
+---
+tags:
+- User
+parameters:
+  - in: body
+    name: body
+    required: true
+    schema:
+      required:
+        - user_name
+        - age
+      properties:
+        user_name:
+            type: string
+            example: Jessica Jones
+        age:
+            type: integer
+            example: 35
+responses:
+  201:
+    description: User created
+    schema:
+      properties:
+        status:
+          type: integer
+          example: 0
+        data:
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 1
+            kgb:
+              $ref: "#/definitions/Order"

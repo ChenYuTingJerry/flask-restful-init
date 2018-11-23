@@ -2,7 +2,7 @@ import json
 from copy import deepcopy
 
 
-class Entity:
+class Entity(dict):
     def __init__(self):
         pass
 
@@ -24,13 +24,13 @@ class Entity:
     def from_object(cls, obj):
         entity = cls()
         if type(obj) is dict:
-            entity.__dict__ = obj
+            entity.update(obj)
         elif type(obj) is str or type(obj) is bytes:
-            entity.__dict__ = json.loads(obj)
+            entity.update(json.loads(obj))
 
-        for key, value in entity.__dict__.items():
+        for key, value in entity.items():
             if type(value) is dict:
-                entity.__dict__[key] = cls.from_object(json.dumps(value))
+                entity[key] = cls.from_object(json.dumps(value))
             elif type(value) is list:
                 for i, obj in enumerate(value):
                     if type(obj) is dict:

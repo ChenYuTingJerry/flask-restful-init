@@ -1,4 +1,5 @@
 from flask import Flask
+from flasgger import Swagger
 from app.api import users
 
 
@@ -14,6 +15,7 @@ def create_app(config_name='config.config'):
       """
     app = Flask(__name__)
     app.config.from_object(config_name)
+    Swagger(app, template=app.config['SWAGGER_TEMPLATE'])
 
     # bind db
     with app.app_context():

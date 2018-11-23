@@ -10,8 +10,8 @@ class TestUserService:
 
         monkeypatch.setattr(UserModel, 'find_by_id', mockreturn)
         x = user_service.get_user(1)
-        assert x.user_name == 'Test'
-        assert x.age == 15
+        assert x['user_name'] == 'Test'
+        assert x['age'] == 15
 
     def test_get_no_user(self, monkeypatch):
         def mockreturn(_id):

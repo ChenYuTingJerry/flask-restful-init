@@ -10,7 +10,7 @@ class TestUserResource:
             return Entity.from_object({'id': _id, 'user_name': 'Test', 'age': 15})
 
         monkeypatch.setattr(user_service, 'get_user', mockreturn)
-        response = client.get('/users/1')
+        response = client.get('/users?user_id={}'.format(1))
 
         assert response.status_code == 200
         assert response.data
@@ -25,12 +25,17 @@ class TestUserResource:
             return None
 
         monkeypatch.setattr(user_service, 'get_user', mockreturn)
-        response = client.get('/users/1')
+        response = client.get('/users?user_id={}'.format(1))
 
-        assert response.status_code == 204
+        assert response.status_code == 200
+        assert response.data
+
+        body = json.loads(response.data)
+        assert body.get('status') == 0
+        assert not body.get('data')
 
     def test_put_user(self, client):
-        response = client.put('/users/1')
+        response = client.put('/users')
         assert response.status_code == 400
 
         assert response.data
