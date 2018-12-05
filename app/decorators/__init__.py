@@ -1,7 +1,7 @@
 from functools import wraps
 from werkzeug.exceptions import BadRequest
 
-from app.exceptions import InvalidRequest
+from app.entities.exceptions import InvalidRequest
 
 
 def valid_request(func):

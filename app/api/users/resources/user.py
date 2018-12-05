@@ -2,7 +2,7 @@ from flask_restful import reqparse, Resource, Api
 
 from app.entities.response import SuccessResponse
 from app.api.users import bp
-from app.exceptions import InvalidUsage
+from app.entities.exceptions import InvalidUsage
 from app.decorators import valid_request
 from app.api.users.services import user_service
 from flasgger import swag_from
