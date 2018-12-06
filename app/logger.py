@@ -2,7 +2,7 @@ from logging import FileHandler
 import logging
 
 
-def init_app(app):
+def init(app):
     log_handler = FileHandler(app.config['LOG_PATH'])
     formatter = logging.Formatter(app.config['LOG_FORMAT'])
     log_handler.setFormatter(formatter)

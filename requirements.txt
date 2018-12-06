@@ -1,3 +1,4 @@
+amqp==2.3.2
 aniso8601==4.0.1
 asn1crypto==0.24.0
 atomicwrites==1.2.1
@@ -21,6 +22,8 @@ import-string==0.1.0
 itsdangerous==1.1.0
 Jinja2==2.10
 jsonschema==2.6.0
+kombu==4.2.1
+librabbitmq==2.0.0
 MarkupSafe==1.0
 mistune==0.8.4
 mongoengine==0.16.0
@@ -37,5 +40,6 @@ requests==2.20.0
 six==1.11.0
 SQLAlchemy==1.2.13
 urllib3==1.24.1
+vine==1.1.4
 Werkzeug==0.14.1
 WTForms==2.2.1

@@ -4,7 +4,7 @@ from .db import mysql, mongodb
 from flask import request, g, current_app as app
 
 
-def init_app(app):
+def init(app):
     @app.before_request
     def before_each_request():
         # record request time

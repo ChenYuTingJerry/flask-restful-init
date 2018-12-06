@@ -1,9 +1,11 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_mongoengine import MongoEngine
 
+__all__ = ['mysql', 'mongodb']
+
 
 class DatabaseProxy:
-    def init_db(self, app):
+    def init(self, app):
         raise NotImplemented('init_db() needs to be implemented')
 
     @property
@@ -27,7 +29,7 @@ class Mysql(DatabaseProxy):
     def __init__(self):
         self.db = _engines.get('sql_alchemy')
 
-    def init_db(self, app):
+    def init(self, app):
         self.db.init_app(app)
         self.db.create_all()
 
@@ -46,7 +48,7 @@ class Mongodb(DatabaseProxy):
     def __init__(self):
         self.db = _engines.get('mongo')
 
-    def init_db(self, app):
+    def init(self, app):
         self.db.init_app(app)
 
     @property

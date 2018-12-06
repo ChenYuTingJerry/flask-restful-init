@@ -4,7 +4,7 @@ from werkzeug.exceptions import HTTPException
 from app.entities.response import ErrorResponse
 
 
-def init_app(app):
+def init(app):
     @app.errorhandler(HTTPException)
     def handle_exception(error):
         """

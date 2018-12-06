@@ -6,19 +6,19 @@ TESTING = False
 
 # swagger
 SWAGGER_TEMPLATE = {
-  "swagger": "3.0",
-  "info": {
-    "title": "Contract Service",
-    "description": "API for Contract service",
-    "version": "0.0.1"
-  },
-  "host": "localhost:5000",  # overrides localhost:500
-  "basePath": "/",  # base bash for blueprint registration
-  "schemes": [
-    "http",
-    "https"
-  ],
-  "operationId": "getmyData"
+    "swagger": "3.0",
+    "info": {
+        "title": "Contract Service",
+        "description": "API for Contract service",
+        "version": "0.0.1"
+    },
+    "host": "localhost:5000",  # overrides localhost:500
+    "basePath": "/",  # base bash for blueprint registration
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "operationId": "getmyData"
 }
 
 # logger
@@ -38,3 +38,6 @@ MONGODB_SETTINGS = {
     'username': 'tester',
     'password': 'test_pwd'
 }
+
+# Broker
+BROKER_URL = 'amqp://jerry:jerry123@localhost:5672/jerry_vhost'

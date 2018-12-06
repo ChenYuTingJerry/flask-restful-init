@@ -1,10 +1,12 @@
 from flask import Flask
 from flasgger import Swagger
-from app.api import users
+
+from app.api import users, messages
 
 
 def register_blueprints(app):
     app.register_blueprint(users.bp, url_prefix='/users')
+    app.register_blueprint(messages.bp, url_prefix='/messages')
 
 
 def create_app(config_name='config.config'):
@@ -20,9 +22,9 @@ def create_app(config_name='config.config'):
     # bind db
     with app.app_context():
         from app import errors, logger, request_events
-        logger.init_app(app)
-        request_events.init_app(app)
-        errors.init_app(app)
+        logger.init(app)
+        request_events.init(app)
+        errors.init(app)
         # register blueprints
         register_blueprints(app)
 
@@ -32,8 +34,12 @@ def create_app(config_name='config.config'):
         from .db import mysql, mongodb
         # init db
         mysql_db = mysql
-        mysql_db.init_db(app)
+        mysql_db.init(app)
         mongo_db = mongodb
-        mongo_db.init_db(app)
+        mongo_db.init(app)
+
+        # init queue
+        from app.msg_queue import producer
+        producer.init(app)
 
     return app
