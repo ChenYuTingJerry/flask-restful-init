@@ -9,6 +9,7 @@ This is an initial project of building a RESTful web service in Flask. Ideally, 
 ### Creating Virtual Environment
 
 1. Create a project folder
+d
     ```sh
     $ mkdir my-project
     ```
@@ -21,15 +22,18 @@ This is an initial project of building a RESTful web service in Flask. Ideally, 
     ```
 1. activate virtual environment
     - On Windows, run:
+    
         ```sh
         $ .\venv\Scripts\activate.bat
         ```
     - On Unix or Mac, run:
+    
         ```sh
         $ source ./venv/bin/activate 
         ```
 1. Copy the all files from the initial project to /my-project.
 1. Install modules:
+
     ```sh
     $ pip install -r requirements.txt 
     ``` 

@@ -1,10 +1,8 @@
 from kombu import Connection
 from kombu.pools import producers
 
-__all__ = ['producer']
 
-
-class _Producer:
+class Producer:
     def __init__(self):
         self._connection = None
 
@@ -17,4 +15,4 @@ class _Producer:
                          serializer=serializer, retry=retry)
 
 
-producer = _Producer()
+producer = Producer()

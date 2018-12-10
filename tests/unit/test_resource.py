@@ -66,3 +66,4 @@ class TestUserResource:
         body = json.loads(response.data)
         assert body.get('status') == 1
         assert body.get('error').get('type') == 'InvalidRequest'
+

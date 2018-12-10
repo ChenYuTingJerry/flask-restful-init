@@ -31,7 +31,7 @@ class Mysql(DatabaseProxy):
 
     def init(self, app):
         self.db.init_app(app)
-        self.db.create_all()
+        # self.db.create_all()
 
     @property
     def engine(self):

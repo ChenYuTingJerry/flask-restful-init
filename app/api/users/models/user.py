@@ -8,15 +8,15 @@ db = mysql.engine
 class UserModel(db.Model):
     __tablename__ = 'user'
 
-    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80))
     age = db.Column(db.Integer)
 
-    def __init__(self, username, age, id=None):
+    def __init__(self, username, age, user_id=None):
         self.username = username
         self.age = age
-        if id:
-            self.id = id
+        if user_id:
+            self.user_id = user_id
 
     def save(self):
         db.session.add(self)
@@ -29,7 +29,7 @@ class UserModel(db.Model):
 
     def to_entity(self):
         return Entity.from_object({
-            'id': self.id,
+            'user_id': self.user_id,
             'user_name': self.username,
             'age': self.age
         })

@@ -1,12 +1,13 @@
 from flask import Flask
 from flasgger import Swagger
 
-from app.api import users, messages
+from app.api import users, messages, contracts
 
 
 def register_blueprints(app):
     app.register_blueprint(users.bp, url_prefix='/users')
     app.register_blueprint(messages.bp, url_prefix='/messages')
+    app.register_blueprint(contracts.bp, url_prefix='/contracts')
 
 
 def create_app(config_name='config.config'):
